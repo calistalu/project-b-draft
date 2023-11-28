@@ -1,0 +1,113 @@
+
+body {
+  margin: 0;
+  background-color: rgb(236,249,255);
+}
+
+p {
+  margin: 0;
+  padding: 0;
+}
+
+
+#box1 {
+  width: 100%;
+  height: 50px;
+  position: absolute;
+  bottom: 0;
+  transform: translateY(100%);
+  background-color: rgb(235, 227, 213); /* Set your desired background color */
+  animation: floatUp 2s ease-out forwards;
+}
+
+#box2 {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  animation: fall 4s ease-out forwards;
+}
+
+#box2 img {
+  transform: translateX(-50%);
+  width: 500px; /* Set your desired width for the image */
+  height: 500px; /* Set your desired height for the image */
+  border-radius: 50%;
+}
+
+
+#box3 {
+  position: absolute;
+  font-family: 'Permanent Marker', cursive;
+  top: -500px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: fallDown 4s ease-out forwards;
+  color: rgb(103, 114, 157); 
+  font-size: 300px;
+  text-align: center;
+  background-color: transparent;
+}
+
+#box4 {
+  position:absolute;
+  top: 1000px;
+  margin: 100px;
+  width:50%;
+  height:500px;
+
+}
+
+
+@keyframes floatUp {
+  to {
+    transform: translateY(-25%);
+  }
+}
+
+@keyframes fall {
+  0% {
+    top: -1000px;
+  }
+  100% {
+    top: 35%;
+  }
+}
+
+@keyframes rotateOnHover {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fallDown {
+  0% {
+    top: -2000px;
+  }
+  100% {
+    top: 20%;
+  }
+}
+
+header {
+  background-color:rbga(50,50,50,0.5);
+  color: #fff;
+  padding: 10px;
+  text-align: right;
+}
+
+#contactBtn {
+  background-color: rgb(187, 156, 192);
+  color: #fff;
+  border: none;
+  padding: 15px 30px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#contactBtn:hover {
+  background-color: rgb(103, 114, 157);
+}
+
