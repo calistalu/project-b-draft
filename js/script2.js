@@ -45,7 +45,7 @@ function draw() {
 
       var r1 = map(ii, 0, 360, 0, 255 * 3)
       var g1 = 130;
-      var b1 = 160;
+      var b1 = 190;
       fill((r1 + offset) % 255, g1, b1)
 
      
