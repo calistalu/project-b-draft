@@ -10,6 +10,9 @@ var Mode = 0;
 var drops = [];
 var hasPlayed = false;
 var child;
+var teen;
+var adult;
+var old;
 let amplitude;
 let snowflakes = [];
 
@@ -17,25 +20,29 @@ function preload() {
     song = loadSound("audio/music.mp3");
     img = loadImage('image/background.jpg');
     child = loadImage('image/child-unscreen.gif')
+    teen = loadImage('image/teen-unscreen.gif')
+    adult = loadImage('image/adult-unscreen.gif')
+    old = loadImage('image/old-unscreen.gif')
 }
 
 function setup() {
     createCanvas(windowWidth, windowHeight);
-    angleMode(DEGREES);
+    
     fft = new p5.FFT();
 
     let button = createButton('RAIN');
     button.position(width - 70, height - 30);
     button.mousePressed(changeMode);
 
-    // let button2 = createButton('SNOW');
-    // button.position(width - 170, height - 30);
-    // button.mousePressed(changeMode2);
+    let button2 = createButton('SNOW');
+    button2.position(width - 170, height - 30);
+    button2.mousePressed(changeMode2);
 
     amplitude = new p5.Amplitude();
 }
 
 function draw() {
+    angleMode(DEGREES);
     imageMode(CORNER);
     image(img, 0, 0, width, height);
 
@@ -43,13 +50,13 @@ function draw() {
 
     background(0, 100)
 
+    
     imageMode(CENTER);
-    tint(255,255,255);
     image(child, width/2, height/2-100-150, 150, 200);
     noTint();
 
     fft.analyze();
-    var amp = fft.getEnergy(20, 200);
+    var amp =  fft.getEnergy(20, 200);
 
     stroke(amp / 1.5, 100, 150);
     strokeWeight(3);
@@ -109,6 +116,16 @@ function draw() {
 
     }
 
+    if (Mode == 2) {
+        let t = frameCount / 60;
+        snowflakes.push(new snowflake());
+      
+        for (let flake of snowflakes) {
+          flake.update(t);
+          flake.display();
+        }
+    }
+
     
 
 }
@@ -163,7 +180,7 @@ class Particle {
 class Drop {
     constructor(x, y) {
         this.pos = createVector(x, y)
-        this.vel = createVector(0, random(3, 6))
+        this.vel = createVector(0, map(mouseX,0,width,random(1, 5),random(7, 11)))
         this.length = random(10, 20)
         this.strength = random(255)
     }
@@ -183,27 +200,30 @@ class Drop {
 
 class snowflake{
     constructor(){
+    
     this.posX = 0;
     this.posY = random(-50, 0);
+    angleMode(RADIANS)
     this.initialangle = random(0, 2 * PI);
-    this.size = random(2, 8);
-    this.a=random(100,255)
-    this.radius = random(0, width / 2);
+    this.size = random(3, 10);
+    this.a=random(0,255)
+    this.radius = random(0, width);
   
     }
     
     update(time) {
-      let angle = 0.3 * time + this.initialangle;
-      this.posX = width / 2 + this.radius * sin(angle);
-  
-      if (this.posY > height) {
-        let index = snowflakes.indexOf(this);
-        snowflakes.splice(index, 1);
+        let angle = map(mouseX,0,width,0.2,0.25) * time + this.initialangle;
+        this.posX = width / 2 + this.radius * sin(angle);
+    
+        if (this.posY > height) {
+          let index = snowflakes.indexOf(this);
+          snowflakes.splice(index, 1);
+        }
+        this.posY += pow(this.size, 0.5);
       }
-      this.posY += pow(this.size, 0.5);
-    }
   
     display() {
+        noStroke();
       fill(255,this.a)
       ellipse(this.posX, this.posY, this.size);
     }
