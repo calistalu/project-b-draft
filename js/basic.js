@@ -1,12 +1,10 @@
 
 window.addEventListener("scroll", function() {
     const scrolled = window.scrollY;
-    console.log(scrolled/10)
-    const rotationAngle = scrolled;       
+    console.log(scrolled/10); 
     const translationX = scrolled;  
     const translationY = scrolled;  
     document.getElementById("box2").style.transform = "translate(" + translationX + "px, " + translationY + "px) ";
-    
   });
 
   document.addEventListener('DOMContentLoaded', function() {
